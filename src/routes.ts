@@ -21,7 +21,7 @@ router.post('/receipts/process', async (req: Request, res: Response) => {
     res.status(200).send({ id });
 });
 
-router.post('/receipts/:id/points', async (req: Request, res: Response) => {
+router.get('/receipts/:id/points', async (req: Request, res: Response) => {
     const id: string = req.params.id;
 
     if (!receipts[id]) {

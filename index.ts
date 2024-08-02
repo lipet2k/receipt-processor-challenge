@@ -3,8 +3,9 @@ import { Environment } from './src/environment';
 import { router } from './src/routes';
 
 const app: Express = express();
-app.use('/', router);
+app.use('/', express.json(), router);
+
 
 app.listen(Environment.env.PORT, () => {
-    console.log(`Server is listening on port${Environment.env.PORT}`);
+    console.log(`Server is listening on port ${Environment.env.PORT}`);
 });

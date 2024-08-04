@@ -19,7 +19,7 @@ function valid_receipt(receipt: Receipt): boolean {
 }
 
 function _valid_retailer(retailer: string): boolean {
-    return retailer.match('^[\\w\\s\\-&]+$') != null;
+    return retailer.match(/^[\w\s\-&]+$/) !== null;
 }
 
 function _valid_purchase_date(purchaseDate: string): boolean {
@@ -52,21 +52,15 @@ function _valid_item(item: Item): boolean {
 }
 
 function _valid_total(total: string): boolean {
-    const total_regex: RegExp = new RegExp('^\d+\.\d{2}$');
-
-    return !total.match(total_regex);
+    return total.match(/^\d+\.\d{2}$/) !== null;
 }
 
 function _valid_short_description(shortDescription: string): boolean {
-    const short_description_regex: RegExp = new RegExp('^[\w\s-]+$');
-
-    return !shortDescription.match(short_description_regex);
+    return shortDescription.match(/^[\w\s\-]+$/) !== null;
 }
 
 function _valid_price(price: string): boolean {
-    const price_regex: RegExp = new RegExp('^\d+\.\d{2}$');
-
-    return !price.match(price_regex);
+    return price.match(/^\d+\.\d{2}$/) !== null;
 }
 
 export { valid_receipt };

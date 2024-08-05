@@ -7,7 +7,7 @@ function valid_receipt(receipt: Receipt): boolean {
         return false;
     }
 
-    const requiredFields = ['retailer', 'purchaseDate', 'purchaseTime', 'items', 'total'];
+    const requiredFields: string[] = ['retailer', 'purchaseDate', 'purchaseTime', 'items', 'total'];
 
     for (const field of requiredFields) {
         if (!receipt[field as keyof Receipt]) {

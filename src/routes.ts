@@ -1,10 +1,10 @@
 import { calculate_points } from './calculate_points';
-import express, { Request, Response } from 'express';
+import express, { Request, Response, Router } from 'express';
 import { Receipt } from './types';
 import { randomUUID, UUID } from 'crypto';
 import { valid_receipt } from './validate';
 
-const router = express.Router();
+const router: Router = express.Router();
 
 const receipts: { [id: string]: number } = {};
 

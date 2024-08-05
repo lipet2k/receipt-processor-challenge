@@ -9,21 +9,21 @@ function calculate_points(receipt: Receipt): number {
 }
 
 function _count_alpha_numeric_characters(retailer: string): number {
-    const regex_matches: RegExpMatchArray | null = retailer.match(/[a-zA-Z0-9]/g);
-    return regex_matches ? regex_matches.length : 0;
+    const regexMatches: RegExpMatchArray | null = retailer.match(/[a-zA-Z0-9]/g);
+    return regexMatches ? regexMatches.length : 0;
 }
 
 function _calculate_points_for_total(total: string): number {
     let points: number = 0;
 
-    const dollars_and_cents: string[] = total.split('.');
-    const total_cents: number = parseInt(dollars_and_cents[1]);
+    const dollarsAndCents: string[] = total.split('.');
+    const totalCents: number = parseInt(dollarsAndCents[1]);
 
-    if (total_cents === 0) {
+    if (totalCents === 0) {
         points += 50;
     }
 
-    if (total_cents % 25 === 0) {
+    if (totalCents % 25 === 0) {
         points += 25;
     }
 
@@ -33,14 +33,14 @@ function _calculate_points_for_total(total: string): number {
 function _calculate_items_points(items: Item[]): number {
     let points: number = 0;
 
-    const multiples_of_two = Math.floor(items.length / 2);
-    points += 5 * multiples_of_two;
+    const multiplesOfTwo: number = Math.floor(items.length / 2);
+    points += 5 * multiplesOfTwo;
 
     for (const item of items) {
-        const shortDescription = item.shortDescription.trim();
+        const shortDescription: string = item.shortDescription.trim();
         if (shortDescription.length % 3 === 0) {
-            const price_points_float = parseFloat(item.price) * 0.2;
-            points += Math.ceil(price_points_float);
+            const pricePointsFloat = parseFloat(item.price) * 0.2;
+            points += Math.ceil(pricePointsFloat);
         }
     }
 

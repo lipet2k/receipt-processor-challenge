@@ -1,25 +1,42 @@
 const MMCornerMarketReceipt = require('./examples/m&m-receipt.json');
 const MorningReceipt = require('./examples/morning-receipt.json');
 const SimpleReceipt = require('./examples/simple-receipt.json');
-const TargetReceipt =  require('./examples/target-receipt.json');
+const TargetReceipt = require('./examples/target-receipt.json');
 
 const { valid_receipt } = require('../src/validate');
 const { describe, expect, test } = require('@jest/globals');
 
-describe('Test the validate module', () => {
-    test('Valid Example M&M Receipt', () => {
-        expect(valid_receipt(MMCornerMarketReceipt)).toBe(true);
+describe('validate module', () => {
+    describe('validate valid example receipts', () => {
+        test('should validate example receipts to be true', () => {
+            const receipts = [MMCornerMarketReceipt, MorningReceipt, SimpleReceipt, TargetReceipt];
+
+            for (const receipt of receipts) {
+                expect(valid_receipt(receipt)).toBe(true);
+            }
+        });
     });
 
-    test('Valid Example Morning Receipt', () => {
-        expect(valid_receipt(MorningReceipt)).toBe(true);
+    describe('validate INVALID receipts', () => {
+        test('should validate missing receipt to be false', () => {
+            expect(valid_receipt(null)).toBe(false);
+        });
+
+        test('should validate missing retailer to be false', () => {
+            const missingRetailerReceipt = structuredClone(SimpleReceipt);
+            delete missingRetailerReceipt.retailer;
+
+            expect(valid_receipt(missingRetailerReceipt)).toBe(false);
+        });
+
+        test('should validate missing items to be false', () => {
+            const missingItemsReceipt = structuredClone(SimpleReceipt);
+            missingItemsReceipt.items[0] = null;
+
+            expect(valid_receipt(missingItemsReceipt)).toBe(false);
+        });
+
+
     });
 
-    test('Valid Example Simple Receipt', () => {
-        expect(valid_receipt(SimpleReceipt)).toBe(true);
-    });
-
-    test('Valid Example Target Receipt', () => {
-        expect(valid_receipt(TargetReceipt)).toBe(true);
-    });
 });

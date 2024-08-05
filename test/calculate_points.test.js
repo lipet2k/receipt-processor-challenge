@@ -1,26 +1,36 @@
 const MMCornerMarketReceipt = require('./examples/m&m-receipt.json');
 const MorningReceipt = require('./examples/morning-receipt.json');
 const SimpleReceipt = require('./examples/simple-receipt.json');
-const TargetReceipt =  require('./examples/target-receipt.json');
+const TargetReceipt = require('./examples/target-receipt.json');
 
 const { calculate_points } = require('../src/calculate_points');
 const { describe, expect, test } = require('@jest/globals');
 
-describe('Test the calculate_points module', () => {
-    test('Calculate Points for Example M&M Receipt', () => {
-        expect(calculate_points(MMCornerMarketReceipt)).toBe(109);
+describe('calculate_points module', () => {
+    describe('points calculation for example receipts', () => {
+        test('should correctly calculate points for M&M Corner Market Receipt', () => {
+            expect(calculate_points(MMCornerMarketReceipt)).toBe(109);
+        });
+
+        test('should correctly calculate points for Morning Receipt', () => {
+            expect(calculate_points(MorningReceipt)).toBe(15);
+        });
+
+        test('should correctly calculate points for Simple Receipt', () => {
+            expect(calculate_points(SimpleReceipt)).toBe(31);
+        });
+
+        test('should correctly calculate points for Target Receipt', () => {
+            expect(calculate_points(TargetReceipt)).toBe(28);
+        });
     });
 
-    test('Calculate Points for Example Morning Receipt', () => {
-        expect(calculate_points(MorningReceipt)).toBe(15);
-    });
+    describe('points calculation for receipt with empty retailer name', () => {
+        test('should correctly calculate points for empty retailer name', () => {
+            const TargetCopy = structuredClone(TargetReceipt);
+            TargetCopy.retailer = '';
 
-    test('Calculate Points for Example Simple Receipt', () => {
-        expect(calculate_points(SimpleReceipt)).toBe(31);
+            expect(calculate_points(TargetCopy)).toBe(22);
+        });
     });
-
-    test('Calculate Points for Example Target Receipt', () => {
-        expect(calculate_points(TargetReceipt)).toBe(28);
-    });
-
 });

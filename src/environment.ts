@@ -1,9 +1,9 @@
 class Environment {
-    static env = {
-        PORT: process.env.PORT || "3000"
+    static env: { [PORT: string]: string } = {
+        PORT: process.env.PORT || '3000'
     }
 
-    get_environment_variables() {
+    get environment_variables(): { [PORT: string]: string } {
         return Environment.env;
     }
 }

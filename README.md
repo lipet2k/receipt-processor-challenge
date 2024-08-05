@@ -52,5 +52,5 @@ curl -X POST http://127.0.0.1:3000/receipts/process -H "Content-Type: applicatio
 
 ## Example Get Points Usage
 ```
-curl -X GET http://localhost:3000/receipts/{id}/points
+curl -X GET http://127.0.0.1:3000/receipts/{id}/points
 ```

@@ -16,7 +16,12 @@ router.post('/receipts/process', async (req: Request, res: Response) => {
     }
 
     const id: UUID = randomUUID();
+
+    // check if hashed items are in in memory database
+
     receipts[id] = calculate_points(receipt);
+
+
 
     res.status(200).send({ id });
 });

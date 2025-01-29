@@ -36,6 +36,8 @@ function _calculate_items_points(items: Item[]): number {
     const multiplesOfTwo: number = Math.floor(items.length / 2);
     points += 5 * multiplesOfTwo;
 
+    points += _calculate_unique_items(items);
+
     for (const item of items) {
         const shortDescription: string = item.shortDescription.trim();
         if (shortDescription.length % 3 === 0) {
@@ -45,6 +47,19 @@ function _calculate_items_points(items: Item[]): number {
     }
 
     return points;
+}
+
+function _calculate_unique_items(items: Item[]): number {
+    const set = new Set();
+
+    for (const item of items) {
+        set.add(item.shortDescription.toLowerCase());
+    }
+
+    if (set.size === items.length) {
+        return 5 * items.length;
+    }
+    return 0;
 }
 
 function _calculate_purchase_date_points(purchaseDate: string): number {
